@@ -43,4 +43,52 @@ exit
 
 ```
 
-##
+## 10.MySQLi methods and properties
+
+Аналоги у процедурного и ООП стиля
+
+```php
+// $db = mysqli_connect($server,$user,$pwd,$db_name);
+$db = new mysqli($server, $user, $pwd, $db_name);
+
+// mysqli_query($db, $sql)
+$db->query($sql);
+
+// mysqli_real_escape_string($db, $string)
+$db->escape_string($string);
+
+// mysqli_affected_rows($db)
+$db->affected_rows;
+
+// mysqli_insert_id($db) 
+$db->insert_id;
+```
+
+```php
+// $db - становится объектом,
+// свойства и методы которого используются в дальнейшем коде
+$db = new mysqli ($server, $user, $pwd, $db_name); 
+// $result - тоже становится объектом
+$result = $db->query($sql);
+
+// mysqli_fetch_assoc($result)
+$result->fetch_assoc();
+
+// mysqli_free_result($result)
+$result->free();
+
+// mysqli_num_rows($result)
+$result->num_rows;
+```
+
+Из возможных методов `fetch_..()` всё же лучше использовать метод получения массива, чем - получения объекта. Из полученного массива можно создавать свои объекты.  
+
+```php
+
+$result->fetch_assoc();  // associative array
+$result->fetch_row();    // basic array
+$result->fetch_array();  // assoc, row, or both
+$result->fetch_object(); // crude object
+```
+
+## 
