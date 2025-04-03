@@ -45,7 +45,7 @@ exit
 
 ## 10.MySQLi methods and properties
 
-Аналоги у процедурного и ООП стиля
+Аналоги у процедурного стиля и ООП
 
 ```php
 // $db = mysqli_connect($server,$user,$pwd,$db_name);

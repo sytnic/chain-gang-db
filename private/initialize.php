@@ -46,6 +46,7 @@
   }
   spl_autoload_register('my_autoload');
 
+  // $database - это объект
   $database = db_connect();
 
 ?>
