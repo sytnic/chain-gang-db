@@ -67,7 +67,7 @@ $db->insert_id;
 ```php
 // $db - становится объектом,
 // свойства и методы которого используются в дальнейшем коде
-$db = new mysqli ($server, $user, $pwd, $db_name); 
+$db = new mysqli($server, $user, $pwd, $db_name); 
 // $result - тоже становится объектом
 $result = $db->query($sql);
 
@@ -91,4 +91,15 @@ $result->fetch_array();  // assoc, row, or both
 $result->fetch_object(); // crude object
 ```
 
+## 12.Disconnect from the database
+
+```php
+$db = new mysqli($server, $user, $pwd, $db_name); 
+$result = $db->query($sql);
+
+// mysqli_close($db)
+$db->close()
+```
+
 ## 
+
