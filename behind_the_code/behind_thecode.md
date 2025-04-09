@@ -1,4 +1,4 @@
-## 05 Create DB
+## 05. Create DB
 
 ```sql
 
@@ -11,7 +11,7 @@ GRANT ALL PRIVILEGES ON chain_gang.* TO 'webuser'@'localhost' IDENTIFIED BY 'sec
 USE chain_gang;
 ```
 
-## 06 Create Table
+## 06. Create Table
 
 ```sql
 
@@ -43,7 +43,7 @@ exit
 
 ```
 
-## 10.MySQLi methods and properties
+## 10. MySQLi methods and properties
 
 Аналоги у процедурного стиля и ООП
 
@@ -91,7 +91,7 @@ $result->fetch_array();  // assoc, row, or both
 $result->fetch_object(); // crude object
 ```
 
-## 12.Disconnect from the database
+## 12. Disconnect from the database
 
 ```php
 $db = new mysqli($server, $user, $pwd, $db_name); 
@@ -101,5 +101,12 @@ $result = $db->query($sql);
 $db->close()
 ```
 
-## 
+## 13. Active record design patterns
 
+Суть в том, что столбцы записи в таблице соотвествуют свойствам объекта в коде.  
+При SELECT эти записи достаются из БД и заполняют свойства объекта.  
+При INSERT, UPDATE, DELETE свойства объекта записываются в соответсвующие столбцы записи в таблице.  
+
+ <img src="img/active_record_design_pattern.jpg" alt="drawing" width="600"/>
+
+## 

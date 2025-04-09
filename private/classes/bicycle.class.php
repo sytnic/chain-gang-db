@@ -2,6 +2,15 @@
 
 class Bicycle {
 
+    // ---- START OF ACTIVE RECORD CODE ----
+    static public $database;
+
+    // Класс получит собственное соединение с БД
+    static public function set_database($database) {
+        self::$database = $database;
+    }
+    // ---- END OF ACTIVE RECORD CODE  ----
+
     public $brand;
     public $model;
     public $year;

@@ -67,7 +67,11 @@ $bike = new Bicycle($args);
 <?php
 
 $sql = "SELECT * FROM bicycles";
-$result = $database->query($sql);
+
+// $result = $database->query($sql);
+// вместо этого постепенно вводим Active Record
+$result = Bicycle::$database->query($sql);
+
 $row = $result->fetch_assoc();
 $result->free();
 

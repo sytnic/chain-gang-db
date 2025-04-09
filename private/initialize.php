@@ -48,5 +48,7 @@
 
   // $database - это объект
   $database = db_connect();
+  // Класс получает собственное соединение с БД
+  Bicycle::set_database($database);
 
 ?>
