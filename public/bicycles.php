@@ -70,7 +70,7 @@ $sql = "SELECT * FROM bicycles";
 
 // $result = $database->query($sql);
 // вместо этого постепенно вводим Active Record
-$result = Bicycle::$database->query($sql);
+$result = Bicycle::find_all();
 
 $row = $result->fetch_assoc();
 $result->free();
