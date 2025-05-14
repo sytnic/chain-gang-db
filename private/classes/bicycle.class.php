@@ -30,12 +30,33 @@ class Bicycle {
         return $object_array;
     }
 
+    /**
+     * Получить все записи из таблицы bicycles 
+     */
     static public function find_all() {
         $sql = "SELECT * FROM bicycles";
         // к этому return применяем отдельную функцию для запросов sql
         // return self::$database->query($sql);
         return self::find_by_sql($sql); 
     }
+
+    /**
+     * Получить одну запись из таблицы bicycles по её id 
+     */
+    static public function find_by_id($id) {
+        $sql = "SELECT * FROM bicycles";
+        $sql.= " WHERE id='".self::$database->escape_string($id)."'";
+        // Согласно запросу, получим 1 объект в массиве
+        $objects_array = self::find_by_sql($sql);
+        
+        if(!empty($objects_array)) {
+            // возвращаем один объект из массива
+            return array_shift($objects_array);
+        } else {
+            return false;
+        }
+    }
+    
 
     /**
      * Создаёт объект со значениями свойств из строки БД
