@@ -28,8 +28,11 @@
 
 <?php
 
-$parser = new ParseCSV(PRIVATE_PATH.'/used_bicycles.csv');
-$bike_array = $parser->parse();
+// Этот парсер CSV будет заменён на извлечение велосипедов из БД
+//$parser = new ParseCSV(PRIVATE_PATH.'/used_bicycles.csv');
+//$bike_array = $parser->parse();
+
+$bikes = Bicycle::find_all();
 
 /* теперь не нужно
 print_r($bike_array);
@@ -42,8 +45,12 @@ $bike = new Bicycle($args);
 */
 
 ?>
-      <?php  foreach($bike_array as $args)  { 
-                 $bike = new Bicycle($args);        
+      <?php 
+      // теперь используется получение объектов, а не аргументов
+              foreach($bikes as $bike)  {
+              //foreach($bike_array as $args)  { 
+                 // Эта строка нужна была при парсере CSVcsv
+                 //$bike = new Bicycle($args);        
       ?>
       <tr>
         <td><?php echo h($bike->brand); ?></td>
@@ -66,16 +73,19 @@ $bike = new Bicycle($args);
 
 <?php
 
-$sql = "SELECT * FROM bicycles";
+//$sql = "SELECT * FROM bicycles";
 
 // $result = $database->query($sql);
 // вместо этого постепенно вводим Active Record
-$result = Bicycle::find_all();
+//$result = Bicycle::find_all();
 
-$row = $result->fetch_assoc();
-$result->free();
+//$bikes = Bicycle::find_all();
 
-echo "BRAND: ".$row['brand'];
+// эти строки переносятся в класс
+//$row = $result->fetch_assoc();
+//$result->free();
+
+//echo "BRAND: ".$row['brand'];
 
 ?>
 

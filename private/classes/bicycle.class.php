@@ -3,6 +3,7 @@
 class Bicycle {
 
     // ---- START OF ACTIVE RECORD CODE ----
+
     static protected $database;
 
     // Класс получит собственное соединение с БД
@@ -15,7 +16,18 @@ class Bicycle {
         if(!$result) {
             exit("Database query failed.");
         }
-        return $result;
+
+        // results into objects
+        // ассоциативный массив, полученный в результате запроса sql,
+        // преобразуется в объекты, вкладываемые в массив
+        $object_array = [];
+        while($record = $result->fetch_assoc()) {
+            $object_array[] = self::instantiate($record);
+        }
+        
+        $result->free();
+
+        return $object_array;
     }
 
     static public function find_all() {
@@ -24,8 +36,32 @@ class Bicycle {
         // return self::$database->query($sql);
         return self::find_by_sql($sql); 
     }
+
+    /**
+     * Создаёт объект со значениями свойств из строки БД
+     */
+    static protected function instantiate($record) {
+        $object = new self;
+        // Could manually assign values to properties
+        // but automatically assignment is easier and re-usable
+
+        // Берём строку из БД и каждый столбец разбиваем на свойства (заголовок столбца) и значения
+        foreach($record as $property => $value) {
+          // Если свойство (название столбца) из строки БД
+          // есть также в качестве свойства в объекте,
+          // то присовить значение ячейки из БД этому свойству объекта
+          if(property_exists($object, $property)) {
+            // динамический $property
+            $object->$property = $value;
+          }
+        }
+        // Вернуть получившийся объект с заполненными значениями свойств
+        return $object;
+      }
+
     // ---- END OF ACTIVE RECORD CODE  ----
 
+    public $id;
     public $brand;
     public $model;
     public $year;
