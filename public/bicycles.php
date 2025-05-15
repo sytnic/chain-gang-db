@@ -21,40 +21,16 @@
         <th>Category</th>
         <th>Gender</th>
         <th>Color</th>
-<!--
-        <th>Weight</th>
-        <th>Condition</th>
--->
         <th>Price</th>
         <th>&nbsp;</th>
       </tr>
 
 <?php
 
-// Этот парсер CSV будет заменён на извлечение велосипедов из БД
-//$parser = new ParseCSV(PRIVATE_PATH.'/used_bicycles.csv');
-//$bike_array = $parser->parse();
-
 $bikes = Bicycle::find_all();
 
-/* теперь не нужно
-print_r($bike_array);
-
-$args = ['brand'=>'Trek', 'model'=>'Emonda', 'year'=>2017, 
-         'category'=>'Road',
-         'gender'=>'Unisex', 'color'=>'black', 'weight_kg'=>1.5, 'price'=>1000.00
-        ];
-$bike = new Bicycle($args);
-*/
-
 ?>
-      <?php 
-      // теперь используется получение объектов, а не аргументов
-              foreach($bikes as $bike)  {
-              //foreach($bike_array as $args)  { 
-                 // Эта строка нужна была при парсере CSVcsv
-                 //$bike = new Bicycle($args);        
-      ?>
+      <?php  foreach($bikes as $bike)  {  ?>
       <tr>
         <td><?php echo h($bike->brand); ?></td>
         <td><?php echo h($bike->model); ?></td>
@@ -62,38 +38,16 @@ $bike = new Bicycle($args);
         <td><?php echo h($bike->category); ?></td>
         <td><?php echo h($bike->gender); ?></td>
         <td><?php echo h($bike->color); ?></td>
-<!--
-        <td><?php echo h($bike->weight_kg()).' / '.h($bike->weight_lbs()); ?></td>
-        <td><?php echo h($bike->condition()); ?></td> 
--->        
         <td><?php 
           // в Mac можно использовать money_format()
           //echo h(money_format('$%i', $bike->price)); 
           // В Windows - "$".number_format():
-          echo h("$".number_format($bike->price, 2));
-        ?></td>
+          echo h("$".number_format($bike->price, 2)); ?>
+        </td>
         <td><a href="detail.php?id=<?php echo $bike->id; ?>">View</a></td>
       </tr>
       <?php  }  ?>
     </table>
-
-<?php
-
-//$sql = "SELECT * FROM bicycles";
-
-// $result = $database->query($sql);
-// вместо этого постепенно вводим Active Record
-//$result = Bicycle::find_all();
-
-//$bikes = Bicycle::find_all();
-
-// эти строки переносятся в класс
-//$row = $result->fetch_assoc();
-//$result->free();
-
-//echo "BRAND: ".$row['brand'];
-
-?>
 
   </div>
 
