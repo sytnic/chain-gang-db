@@ -98,7 +98,7 @@ class Bicycle {
 
     public const GENDERS = ['Mens', 'Womens', 'Unisex'];
 
-    protected const CONDITION_OPTIONS = [
+    public const CONDITION_OPTIONS = [
         1 => 'Beat up',
         2 => 'Decent',
         3 => 'Good',
