@@ -78,7 +78,38 @@ class Bicycle {
         }
         // Вернуть получившийся объект с заполненными значениями свойств
         return $object;
-      }
+    }
+
+    /**
+     * Создаёт запись в БД на основе объекта
+     * 
+     * @return boolean
+     */
+    public function create() {
+        $sql = "INSERT INTO bicycles (";
+        $sql.= "brand, model, year, category, color, gender, price, weight_kg, condition_id, description";
+        $sql.= ") VALUES (";
+        $sql.= "'".$this->brand."', ";
+        $sql.= "'".$this->model."', ";
+        $sql.= "'".$this->year."', ";
+        $sql.= "'".$this->category."', ";
+        $sql.= "'".$this->color."', ";
+        $sql.= "'".$this->gender."', ";
+        $sql.= "'".$this->price."', ";
+        $sql.= "'".$this->weight_kg."', ";
+        $sql.= "'".$this->condition_id."', ";
+        $sql.= "'".$this->description."'";
+        $sql.=")";
+
+        $result = self::$database->query($sql);
+        
+        // получить id для объекта
+        if($result) {
+            $this->id = self::$database->insert_id;
+        }
+
+        return $result;
+    }
 
     // ---- END OF ACTIVE RECORD CODE  ----
 
@@ -98,7 +129,7 @@ class Bicycle {
 
     public const GENDERS = ['Mens', 'Womens', 'Unisex'];
 
-    public const CONDITION_OPTIONS = [
+    public  const CONDITION_OPTIONS = [
         1 => 'Beat up',
         2 => 'Decent',
         3 => 'Good',
