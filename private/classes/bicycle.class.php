@@ -5,6 +5,8 @@ class Bicycle {
     // ---- START OF ACTIVE RECORD CODE ----
 
     static protected $database;
+    static protected $db_columns = ['id', 'brand', 'model', 'year', 'category', 
+        'color', 'gender', 'price', 'weight_kg', 'condition_id', 'description'];
 
     // Класс получит собственное соединение с БД
     static public function set_database($database) {
@@ -86,9 +88,19 @@ class Bicycle {
      * @return boolean
      */
     public function create() {
+
+        $attributes = $this->attributes();
+
         $sql = "INSERT INTO bicycles (";
-        $sql.= "brand, model, year, category, color, gender, price, weight_kg, condition_id, description";
-        $sql.= ") VALUES (";
+        // $sql.= "brand, model, year, category, color, gender, price, weight_kg, condition_id, description";
+        // заменяем эту строку массивом
+        // $sql.= join(', ', self::$db_columns);
+        // или так
+        $sql.= join(', ', array_keys($attributes));
+        $sql.= ") VALUES ('";
+        $sql.= join("', '", array_values($attributes));
+        // этот код заменён на строку с array_values($attributes)
+        /*
         $sql.= "'".$this->brand."', ";
         $sql.= "'".$this->model."', ";
         $sql.= "'".$this->year."', ";
@@ -99,7 +111,13 @@ class Bicycle {
         $sql.= "'".$this->weight_kg."', ";
         $sql.= "'".$this->condition_id."', ";
         $sql.= "'".$this->description."'";
-        $sql.=")";
+        */        
+        $sql.="')";
+
+        // var_dump($this->attributes());
+        // var_dump(self::$db_columns);
+        // var_dump($attributes);
+        // var_dump($sql);
 
         $result = self::$database->query($sql);
         
@@ -109,6 +127,22 @@ class Bicycle {
         }
 
         return $result;
+    }
+
+    // Properties which have database columns, excluding ID
+    /**
+     * Получить массив свойств, соответствующий колонкам из БД
+     * 
+     * @return array
+     */
+    public function attributes() {
+        $attributes = [];
+        foreach (self::$db_columns as $column) {
+            if($column == 'id') { continue; }
+            // используется динамический ->$column
+            $attributes[$column] = $this->$column;
+        }
+        return $attributes;
     }
 
     // ---- END OF ACTIVE RECORD CODE  ----
