@@ -89,7 +89,7 @@ class Bicycle {
      */
     public function create() {
 
-        $attributes = $this->attributes();
+        $attributes = $this->sanitized_attributes();
 
         $sql = "INSERT INTO bicycles (";
         // $sql.= "brand, model, year, category, color, gender, price, weight_kg, condition_id, description";
@@ -143,6 +143,19 @@ class Bicycle {
             $attributes[$column] = $this->$column;
         }
         return $attributes;
+    }
+
+    /**
+     * Экранировать атрибуты объекта
+     * 
+     * @return array
+     */
+    protected function sanitized_attributes() {
+        $sanitized = [];
+        foreach($this->attributes() as $key => $value) {
+            $sanitized[$key] = self::$database->escape_string($value);
+        }
+        return $sanitized;
     }
 
     // ---- END OF ACTIVE RECORD CODE  ----
