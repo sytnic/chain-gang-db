@@ -31,7 +31,7 @@ if(is_post_request()) { // если это post-запрос
   // получить атрибуты в объект вместо полученных выше атрибутов из БД
   $bicycle->merge_attributes($args);
   // обновить в БД с новыми атрибутами
-  $result = $bicycle->update();
+  $result = $bicycle->save();
 
 
   if($result === true) {

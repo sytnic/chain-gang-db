@@ -87,7 +87,7 @@ class Bicycle {
      * 
      * @return boolean
      */
-    public function create() {
+    protected function create() {
 
         $attributes = $this->sanitized_attributes();
 
@@ -134,7 +134,7 @@ class Bicycle {
      * 
      * @return boolean
      */
-    public function update() {
+    protected function update() {
         // экранировать и получить как массив атрибуты объекта
         $attributes = $this->sanitized_attributes();
 
@@ -149,6 +149,20 @@ class Bicycle {
         $sql.= " LIMIT 1";
         $result = self::$database->query($sql);
         return $result;
+    }
+
+    /**
+     * Определяет, объект новый или существующий, и вызывает либо метод create(), либо update()  
+     */
+    public function save() {
+        // A new record will not have an ID yet.
+        // Если у объекта есть id, то это существующая запись и нужен update().
+        // Если у объекта нет id, то это будущая новая запись и нужен create(). 
+        if(isset($this->id)) {
+            return $this->update();
+        } else {
+            return $this->create();
+        }
     }
 
     /**
