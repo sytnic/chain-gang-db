@@ -129,6 +129,43 @@ class Bicycle {
         return $result;
     }
 
+    /**
+     * Обновляет запись в БД на основе объекта
+     * 
+     * @return boolean
+     */
+    public function update() {
+        // экранировать и получить как массив атрибуты объекта
+        $attributes = $this->sanitized_attributes();
+
+        $attribute_pairs = [];
+        foreach($attributes as $key => $value) {
+            $attribute_pairs[] = "{$key}='{$value}'";
+        }
+
+        $sql = "UPDATE bicycles SET ";
+        $sql.= join(', ', $attribute_pairs);
+        $sql.= " WHERE id='".self::$database->escape_string($this->id)."' ";
+        $sql.= " LIMIT 1";
+        $result = self::$database->query($sql);
+        return $result;
+    }
+
+    /**
+     * Получить в объект свойства и их значения из массива
+     */
+    public function merge_attributes($args=[]) {
+        foreach($args as $key => $value) {
+            // c if убеждаемся, что такое свойство существует и
+            // оно не null
+            if(property_exists($this, $key) && !is_null($value)) {
+                // динамически подставляем $свойство и 
+                // присваиваем значение из аргумента (массива)
+                $this->$key = $value;
+            }
+        }
+    }
+
     // Properties which have database columns, excluding ID
     /**
      * Получить массив свойств, соответствующий колонкам из БД
@@ -146,7 +183,7 @@ class Bicycle {
     }
 
     /**
-     * Экранировать атрибуты объекта
+     * Экранировать и получить как массив атрибуты объекта
      * 
      * @return array
      */

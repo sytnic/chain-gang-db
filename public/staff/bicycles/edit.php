@@ -7,7 +7,13 @@ if(!isset($_GET['id'])) {
 }
 $id = $_GET['id'];
 
-if(is_post_request()) {
+// объект bicycle понадобится и в случае пост, и в случае гет запросов
+$bicycle = Bicycle::find_by_id($id);
+if($bicycle == false) {
+  redirect_to(url_for('/staff/bicycles/index.php'));
+}
+
+if(is_post_request()) { // если это post-запрос
 
   // Save record using post parameters
   $args = [];
@@ -22,9 +28,12 @@ if(is_post_request()) {
   $args['condition_id'] = $_POST['condition_id'] ?? NULL;
   $args['description'] = $_POST['description'] ?? NULL;
 
-  $bicycle = [];
+  // получить атрибуты в объект вместо полученных выше атрибутов из БД
+  $bicycle->merge_attributes($args);
+  // обновить в БД с новыми атрибутами
+  $result = $bicycle->update();
 
-  $result = false;
+
   if($result === true) {
     $_SESSION['message'] = 'The bicycle was updated successfully.';
     redirect_to(url_for('/staff/bicycles/show.php?id=' . $id));
@@ -32,13 +41,10 @@ if(is_post_request()) {
     // show errors
   }
 
-} else {
+} else { // иначе это get-запрос
 
   // display the form
-  $bicycle = Bicycle::find_by_id($id);
-  if($bicycle == false) {
-    redirect_to(url_for('/staff/bicycles/index.php'));
-  }
+  
   
 }
 
