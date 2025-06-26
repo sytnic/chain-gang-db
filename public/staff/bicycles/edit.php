@@ -16,7 +16,9 @@ if($bicycle == false) {
 if(is_post_request()) { // если это post-запрос
 
   // Save record using post parameters
-  $args = [];
+
+/*  $args = [];
+
   $args['brand'] = $_POST['brand'] ?? NULL;
   $args['model'] = $_POST['model'] ?? NULL;
   $args['year'] = $_POST['year'] ?? NULL;
@@ -27,6 +29,9 @@ if(is_post_request()) { // если это post-запрос
   $args['weight_kg'] = $_POST['weight_kg'] ?? NULL;
   $args['condition_id'] = $_POST['condition_id'] ?? NULL;
   $args['description'] = $_POST['description'] ?? NULL;
+  // вместо создания массива - массив одной строчкой из HTML-формы
+*/
+  $args = $_POST['bicycle'];
 
   // получить атрибуты в объект вместо полученных выше атрибутов из БД
   $bicycle->merge_attributes($args);

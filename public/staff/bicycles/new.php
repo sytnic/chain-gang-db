@@ -5,7 +5,9 @@ require_once('../../../private/initialize.php');
 if(is_post_request()) {
 
   // Create record using post parameters
-  $args = [];
+
+/*  $args = [];
+
   $args['brand'] = $_POST['brand'] ?? NULL;
   $args['model'] = $_POST['model'] ?? NULL;
   $args['year'] = $_POST['year'] ?? NULL;
@@ -16,6 +18,9 @@ if(is_post_request()) {
   $args['weight_kg'] = $_POST['weight_kg'] ?? NULL;
   $args['condition_id'] = $_POST['condition_id'] ?? NULL;
   $args['description'] = $_POST['description'] ?? NULL;
+  // вместо создания массива - массив одной строчкой из HTML-формы
+*/
+  $args = $_POST['bicycle'];
 
   $bicycle = new Bicycle($args);
   $result = $bicycle->save();
