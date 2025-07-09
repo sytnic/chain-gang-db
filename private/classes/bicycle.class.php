@@ -8,6 +8,8 @@ class Bicycle {
     static protected $db_columns = ['id', 'brand', 'model', 'year', 'category', 
         'color', 'gender', 'price', 'weight_kg', 'condition_id', 'description'];
 
+    public $errors = [];
+
     // Класс получит собственное соединение с БД
     static public function set_database($database) {
         self::$database = $database;
@@ -82,12 +84,28 @@ class Bicycle {
         return $object;
     }
 
+    protected function validate() {
+        $this->errors = [];
+
+        if(is_blank($this->brand)) {
+            $this->errors[] = "Brand cannot be blank.";
+        }
+
+        if(is_blank($this->model)) {
+            $this->errors[] = "Model cannot be blank.";
+        }
+
+        return $this->errors;
+    }
+
     /**
      * Создаёт запись в БД на основе объекта
      * 
      * @return boolean
      */
     protected function create() {
+        $this->validate();
+        if(!empty($this->errors)) { return false; }
 
         $attributes = $this->sanitized_attributes();
 
@@ -135,6 +153,9 @@ class Bicycle {
      * @return boolean
      */
     protected function update() {
+        $this->validate();
+        if(!empty($this->errors)) { return false; }
+
         // экранировать и получить как массив атрибуты объекта
         $attributes = $this->sanitized_attributes();
 

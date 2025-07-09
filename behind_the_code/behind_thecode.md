@@ -142,4 +142,23 @@ $args = $_POST['bicycle'];
 $bicycle = new Bicycle($args);
 ```
 
+##  26.Validations and errors
+
+Принцип валидации:
+
+```php
+
+$errors = [];
+
+// Validations
+if (is_blank($name)) {
+    $errors[] = "Name cannot be blank.";
+}
+
+if (!empty($errors)) {
+// don't save record, show errors instead
+}
+
+```
+
 ## 
