@@ -161,4 +161,11 @@ if (!empty($errors)) {
 
 ```
 
-## 
+## 27.Delete a record
+
+SQL:
+
+    DELETE FROM bicycles
+    WHERE id='1' LIMIT 1;
+
+##  

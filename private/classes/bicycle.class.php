@@ -230,6 +230,26 @@ class Bicycle {
         return $sanitized;
     }
 
+    /**
+     * Удаляет запись из БД 
+     * 
+     * @return boolean 
+     */
+    public function delete() {
+        $sql = "DELETE FROM bicycles ";
+        $sql.= " WHERE id='".self::$database->escape_string($this->id)."' ";
+        $sql.= " LIMIT 1";
+        $result = self::$database->query($sql);
+        return $result;
+
+        // After deleting, the instance of the object will still
+        // exist, even though the database record does not.
+        // This can be useful, as in:
+        //   echo $user->first_name . " was deleted.";
+        // but, for example, we can't call $user->update() after
+        // calling $user->delete().
+    }
+
     // ---- END OF ACTIVE RECORD CODE  ----
 
     public $id;
