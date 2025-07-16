@@ -107,7 +107,7 @@ $db->close()
 При SELECT эти записи достаются из БД и заполняют свойства объекта.  
 При INSERT, UPDATE, DELETE свойства объекта записываются в соответсвующие столбцы записи в таблице.  
 
- <img src="img/active_record_design_pattern.jpg" alt="drawing" width="600"/>
+<img src="img/active_record_design_pattern.jpg" alt="drawing" width="600"/>
 
 ## 25.HTML forms for OOP
 
@@ -168,4 +168,7 @@ SQL:
     DELETE FROM bicycles
     WHERE id='1' LIMIT 1;
 
-##  
+## 28.Create inheritable code
+
+<img src="img/parent_class.jpg" alt="drawing" width="500"/>
+

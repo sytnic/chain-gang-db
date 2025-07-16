@@ -50,7 +50,8 @@
 
   // $database - это объект
   $database = db_connect();
-  // Класс получает собственное соединение с БД
-  Bicycle::set_database($database);
+  // DatabaseObject получает собственное соединение с БД
+  // и будет унаследован подклассами
+  DatabaseObject::set_database($database);
 
 ?>
