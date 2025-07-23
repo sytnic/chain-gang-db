@@ -109,7 +109,7 @@ $db->close()
 
 <img src="img/active_record_design_pattern.jpg" alt="drawing" width="600"/>
 
-## 25.HTML forms for OOP
+## 25. HTML forms for OOP
 
 Методика, как извлекать значения из HTML-формы.
 
@@ -142,7 +142,7 @@ $args = $_POST['bicycle'];
 $bicycle = new Bicycle($args);
 ```
 
-##  26.Validations and errors
+##  26. Validations and errors
 
 Принцип валидации:
 
@@ -161,14 +161,46 @@ if (!empty($errors)) {
 
 ```
 
-## 27.Delete a record
+## 27. Delete a record
 
 SQL:
 
     DELETE FROM bicycles
     WHERE id='1' LIMIT 1;
 
-## 28.Create inheritable code
+## 28. Create inheritable code
 
 <img src="img/parent_class.jpg" alt="drawing" width="500"/>
 
+## 29. Admin class
+
+Создание таблицы
+
+```sql
+
+CREATE TABLE admins (
+  id INT (11) AUTO_INCREMENT PRIMARY KEY,
+  first_name VARCHAR(255) NOT NULL,
+  last_name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  username VARCHAR(255) NOT NULL,
+  hashed_password VARCHAR(255) NOT NULL
+);
+   
+ALTER TABLE admins ADD INDEX index_username (username);
+```
+
+MySQL вход
+
+    mysql -u root -p chain_gang
+
+После создания таблицы
+
+    SHOW TABLES; 
+    SHOW FIELDS FROM admins;
+
+Выход
+
+    quit
+
+## 
