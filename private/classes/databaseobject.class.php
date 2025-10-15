@@ -34,7 +34,7 @@ class DatabaseObject {
     }
 
     /**
-     * Получить все записи из таблицы bicycles 
+     * Получить все записи из таблицы 
      */
     static public function find_all() {
         $sql = "SELECT * FROM ".static::$table_name;
@@ -53,7 +53,7 @@ class DatabaseObject {
     }
 
     /**
-     * Получить одну запись из таблицы bicycles по её id 
+     * Получить одну запись из таблицы по её id 
      */
     static public function find_by_id($id) {
         $sql = "SELECT * FROM ".static::$table_name." ";
@@ -82,7 +82,7 @@ class DatabaseObject {
         foreach($record as $property => $value) {
             // Если свойство (название столбца) из строки БД
             // есть также в качестве свойства в объекте,
-            // то присовить значение ячейки из БД этому свойству объекта
+            // то присвоить значение ячейки из БД этому свойству объекта
             if(property_exists($object, $property)) {
             // динамический $property
             $object->$property = $value;
@@ -93,6 +93,9 @@ class DatabaseObject {
     }
 
     protected function validate() {
+        // это хорошая практика:
+        // сбросить для начала массив в пустой,
+        // если он нечаянно не объявлен пустым ранее
         $this->errors = [];
 
         // Add custom validations
@@ -110,6 +113,7 @@ class DatabaseObject {
         $this->validate();
         if(!empty($this->errors)) { return false; }
 
+        // экранировать и получить как массив атрибуты объекта
         $attributes = $this->sanitized_attributes();
 
         $sql = "INSERT INTO ".static::$table_name." (";
@@ -162,12 +166,14 @@ class DatabaseObject {
         // экранировать и получить как массив атрибуты объекта
         $attributes = $this->sanitized_attributes();
 
+        // получаем массив из строк "key=value","key=value"
         $attribute_pairs = [];
         foreach($attributes as $key => $value) {
             $attribute_pairs[] = "{$key}='{$value}'";
         }
 
         $sql = "UPDATE ".static::$table_name." SET ";
+        // массив из строк "key=value","key=value" превращаем в одну строку
         $sql.= join(', ', $attribute_pairs);
         $sql.= " WHERE id='".self::$database->escape_string($this->id)."' ";
         $sql.= " LIMIT 1";

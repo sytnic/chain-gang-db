@@ -87,6 +87,9 @@ class Bicycle extends DatabaseObject {
     }
 
     protected function validate() {
+        // это хорошая практика:
+        // сбросить для начала массив в пустой,
+        // если он нечаянно не объявлен пустым ранее
         $this->errors = [];
 
         if(is_blank($this->brand)) {

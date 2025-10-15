@@ -48,6 +48,9 @@ exit
 Аналоги у процедурного стиля и ООП
 
 ```php
+// процедурный
+OOP
+
 // $db = mysqli_connect($server,$user,$pwd,$db_name);
 $db = new mysqli($server, $user, $pwd, $db_name);
 
@@ -81,8 +84,6 @@ $result->free();
 $result->num_rows;
 ```
 
-Из возможных методов `fetch_..()` всё же лучше использовать метод получения массива, чем - получения объекта. Из полученного массива можно создавать свои объекты.  
-
 ```php
 
 $result->fetch_assoc();  // associative array
@@ -90,6 +91,8 @@ $result->fetch_row();    // basic array
 $result->fetch_array();  // assoc, row, or both
 $result->fetch_object(); // crude object
 ```
+
+Из возможных методов `fetch_..()` всё же лучше использовать метод получения массива, чем метод получения объекта. Из полученного массива можно создавать свои объекты.  
 
 ## 12. Disconnect from the database
 
@@ -103,11 +106,27 @@ $db->close()
 
 ## 13. Active record design patterns
 
-Суть в том, что столбцы записи в таблице соотвествуют свойствам объекта в коде.  
+Суть в том, что столбцы записи в таблице соответствуют свойствам объекта в коде.  
 При SELECT эти записи достаются из БД и заполняют свойства объекта.  
 При INSERT, UPDATE, DELETE свойства объекта записываются в соответсвующие столбцы записи в таблице.  
 
 <img src="img/active_record_design_pattern.jpg" alt="drawing" width="600"/>
+
+## 19.CRUD operations
+
+Примеры SQL
+
+```sql
+INSERT INTO bicycles (brand, model, year) 
+VALUES ('Trek', 'Emonda', '2017');
+
+UPDATE bicycles
+SET brand='Trek', model='Emonda', year='2017' 
+WHERE id='1' LIMIT 1;
+
+DELETE FROM bicycles 
+WHERE id='1' LIMIT 1;
+```
 
 ## 25. HTML forms for OOP
 
