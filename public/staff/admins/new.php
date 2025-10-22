@@ -7,6 +7,12 @@ if(is_post_request()) {
   // Create record using post parameters
   $args = $_POST['admin'];
   $admin = new Admin($args);
+  
+  // первый способ создания хэшированного пароля,
+  // недостаток - он не создаётся в классе,
+  // и его нужно вот так не забывать прописывать специально
+  $admin->set_hashed_password();
+  
   $result = $admin->save();
 
   if($result === true) {
