@@ -91,6 +91,8 @@ class Admin extends DatabaseObject {
       $this->errors[] = "Username cannot be blank.";
     } elseif (!has_length($this->username, array('min' => 8, 'max' => 255))) {
       $this->errors[] = "Username must be between 8 and 255 characters.";
+    } elseif (!has_unique_username($this->username, $this->id ?? 0)) {
+      $this->errors[] = "Username not allowed. Try another.";
     }
 
     // Если требование пароля истинно,
@@ -122,6 +124,23 @@ class Admin extends DatabaseObject {
     }
 
     return $this->errors;
+  }
+
+  /**
+  * Получить одну запись из таблицы по её username 
+  */
+  static public function find_by_username($username) {
+    $sql = "SELECT * FROM ".static::$table_name." ";
+    $sql.= " WHERE username='".self::$database->escape_string($username)."'";
+    // Согласно запросу, получим 1 объект в массиве
+    $objects_array = static::find_by_sql($sql);
+    
+    if(!empty($objects_array)) {
+        // возвращаем один объект из массива
+        return array_shift($objects_array);
+    } else {
+        return false;
+    }
   }
 
 }
