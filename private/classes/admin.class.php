@@ -36,9 +36,17 @@ class Admin extends DatabaseObject {
     $this->hashed_password = password_hash($this->password, PASSWORD_BCRYPT);
   }
 
+  public function verify_password($password) {
+    // хэшированный пароль в начале своей строки указывает на тип шифрования,
+    // это позволяет функции сравнивать предоставленный пароль со старым паролем
+    // по этому типу шифрования.
+    return password_verify($password, $this->hashed_password);
+  }
+
   /* переопределяем родительский метод */
   protected function create() {
     $this->set_hashed_password();
+    
     // вызываем работу родительского метода parent::create(),
     // а return нужен, п.что родительский метод возвращает true/false
     return parent::create();
