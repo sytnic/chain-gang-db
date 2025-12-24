@@ -222,4 +222,29 @@ MySQL вход
 
     quit
 
-## 
+## 34. Define a session class
+
+Основы логирования пользователя (админа) в сессии
+
+```php
+
+// пользователь вошёл,
+// помечен в сессии
+function log_in ($admin_id) { 
+    $_SESSION['admin_id'] = $admin_id;
+}
+
+// вошедший пользователь,
+// возвращается true/false
+function is_logged_in() {
+    return isset($_SESSION['admin_id']);
+}
+
+// пользователь вышел,
+// стирание переменной сессии
+function log_out() {
+    unset($_SESSION['admin_id']);
+}
+
+
+```

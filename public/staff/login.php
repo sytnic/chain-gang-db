@@ -24,7 +24,7 @@ if(is_post_request()) {
     // test if admin found and password is correct
     if($admin != false && $admin->verify_password($password)) {
       // Mark admin as logged in
-      // Пометка админа как вошедшего ещё только будет реализована
+      $session->login($admin);
 
       redirect_to(url_for('/staff/index.php'));
     } else {

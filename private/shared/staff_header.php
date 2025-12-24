@@ -18,7 +18,12 @@
 
     <navigation>
       <ul>
+        <?php  // если в сессию был вход, то отобразить следующие строки
+               if($session->is_logged_in()) { 
+        ?>
         <li><a href="<?php echo url_for('/staff/index.php'); ?>">Menu</a></li>
+        <li><a href="<?php echo url_for('/staff/logout.php'); ?>">Logout</a></li>
+        <?php } ?>
       </ul>
     </navigation>
 
