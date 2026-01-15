@@ -1,5 +1,20 @@
 <?php
 
+/**
+ * Если пользователь не вошёл, редиректить его
+ * 
+ */
+function require_login() {
+  global $session;
+
+  //  если пользователь не вошёл, редиректить его
+  if(!$session->is_logged_in()) {
+    redirect_to(url_for('/staff/login.php'));
+  } else {
+    // Do nothing, let the rest of the page proceed  
+  }
+}
+
 function display_errors($errors=array()) {
   $output = '';
   if(!empty($errors)) {

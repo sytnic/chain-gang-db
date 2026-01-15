@@ -1,13 +1,6 @@
 <?php require_once('../../private/initialize.php'); ?>
 
-<?php
-//  если пользователь не вошёл, редиректить его
-if(!$session->is_logged_in()) {
-    redirect_to(url_for('/staff/login.php'));
-} else {
-    // Do nothing, let the rest of the page proceed  
-}
-?>
+<?php require_login(); ?>
 
 <?php $page_title = 'Staff Menu'; ?>
 <?php include(SHARED_PATH . '/staff_header.php'); ?>
