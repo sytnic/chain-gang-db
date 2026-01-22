@@ -30,6 +30,11 @@ function display_errors($errors=array()) {
   return $output;
 }
 
+/**
+ * Получает и сразу стирает сообщение в сессии (чтоб оно не хранилось далее)
+ * 
+ */
+/*
 function get_and_clear_session_message() {
   if(isset($_SESSION['message']) && $_SESSION['message'] != '') {
     $msg = $_SESSION['message'];
@@ -37,10 +42,21 @@ function get_and_clear_session_message() {
     return $msg;
   }
 }
+*/
 
 function display_session_message() {
-  $msg = get_and_clear_session_message();
+  // Получает и сразу стирает сообщение в сессии (чтоб оно не хранилось далее)
+  // $msg = get_and_clear_session_message();
+
+  global $session;
+
+  // получает сообщение из сессии
+  $msg = $session->message();
+
   if(isset($msg) && $msg != '') {
+    // стирает сообщение из сессии (чтоб оно не хранилось далее)
+    $session->clear_message();
+    // выводит сообщение
     return '<div id="message">' . h($msg) . '</div>';
   }
 }

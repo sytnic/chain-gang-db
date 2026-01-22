@@ -92,6 +92,30 @@ class Session {
     }
   }
 
+  /**
+   * Задаёт сообщение в сессию, если оно передано в аргументе (set), и
+   * Получает сообщение из сессии, если аргумент пуст (get).
+   * 
+   */
+  public function message($msg="") {
+    if(!empty($msg)) {
+      // Then this is a "set" message
+      $_SESSION['message'] = $msg;
+      return true;
+    } else {
+      // Then this is a "get" message
+      return $_SESSION['message'] ?? '';
+    }
+  }
+
+/**
+ * Стирает сообщение в сессии
+ * 
+ */
+  public function clear_message() {
+    unset($_SESSION['message']);
+  }
+
 }
 
 
