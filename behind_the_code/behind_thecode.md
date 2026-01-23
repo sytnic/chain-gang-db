@@ -246,5 +246,37 @@ function log_out() {
     unset($_SESSION['admin_id']);
 }
 
-
 ```
+
+## 38.Pagination concepts
+
+Для пагинации следует отслеживать три переменные: текущую страницу, число записей на страницу и всего записей.
+
+    Current page ($current_page)
+    Number of records per page ($per_page)
+    Total record count ($total_count)
+
+Также нужно использовать 
+- SQL LIMIT для ограничения количества записей, выдаваемых на одну страницу
+- SQL OFFSET Смещение, чтобы пропустить первые записи, которые нам не нужны на выдаваемой странице. Пример вычисления смещения:  
+
+```php
+    $per_page = 20;
+    $offset = $per_page * ($current_page - 1);
+```
+
+<img src="img/pagination-offset.jpg" alt="drawing" width="600"/>
+
+SQL для получения нужного набора записей и подсчёта общего количества записей будет таким:
+
+```sql
+-- Retrieve a page of results 
+SELECT * FROM bicycles
+LIMIT $per_page
+OFFSET $offset;
+
+-- Get total record count 
+SELECT COUNT(*) FROM bicycles;
+```
+
+## 
