@@ -1,9 +1,13 @@
 <?php require_once('../../../private/initialize.php'); ?>
 <?php require_login(); ?>
 <?php
+
+$pagination = new Pagination($current_page, $per_page, $total_count);
   
 // Find all bicycles;
-$bicycles = Bicycle::find_all();
+// use pagination instead
+// будет использована пагинация вместо этого
+// $bicycles = Bicycle::find_all();
   
 ?>
 <?php $page_title = 'Bicycles'; ?>
