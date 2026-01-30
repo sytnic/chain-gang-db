@@ -2,12 +2,23 @@
 <?php require_login(); ?>
 <?php
 
+$current_page = $_GET['page'] ?? 1;
+$per_page = 5;
+$total_count = Bicycle::count_all();
+
 $pagination = new Pagination($current_page, $per_page, $total_count);
   
 // Find all bicycles;
 // use pagination instead
 // будет использована пагинация вместо этого
 // $bicycles = Bicycle::find_all();
+
+$sql = "SELECT * FROM bicycles ";
+$sql .= "LIMIT {$per_page} ";
+$sql .= "OFFSET {$pagination->offset()}";
+
+// получаем ограниченный набор записей из БД в качестве объектов
+$bicycles = Bicycle::find_by_sql($sql);
   
 ?>
 <?php $page_title = 'Bicycles'; ?>

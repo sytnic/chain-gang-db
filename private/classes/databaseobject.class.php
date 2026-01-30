@@ -52,6 +52,13 @@ class DatabaseObject {
         return static::find_by_sql($sql); 
     }
 
+    static public function count_all() {
+        $sql = "SELECT COUNT(*) FROM " . static::$table_name;
+        $result_set = self::$database->query($sql);
+        $row = $result_set->fetch_array();
+        return array_shift($row);
+    }
+
     /**
      * Получить одну запись из таблицы по её id 
      */
