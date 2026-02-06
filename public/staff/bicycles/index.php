@@ -73,19 +73,8 @@ if($pagination->total_pages() > 1) {
 
   $url = url_for('/staff/bicycles/index.php');
 
-  // если предыдущая страница существует,
-  // построить ссылку на предыдущую страницу
-  if($pagination->previous_page() != false) {
-    echo "<a href=\"{$url}?page={$pagination->previous_page()}\">";
-    echo "&laquo; Previous</a> ";
-  }
-
-  // если последняя страница существует,
-  // построить ссылку на следующую страницу
-  if($pagination->next_page() != false) {
-    echo "<a href=\"{$url}?page={$pagination->next_page()}\">";
-    echo "Next &raquo;</a>";
-  }
+  echo $pagination->previous_link($url);
+  echo $pagination->next_link($url);
 
   echo "</div>";
 }

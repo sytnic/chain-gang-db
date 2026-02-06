@@ -41,8 +41,28 @@ class Pagination {
     public function next_page() {
         $next = $this->current_page + 1;
         return ($next <= $this->total_pages()) ? $next : false;
-    }    
+    }
+    
+    public function previous_link($url="") {
+        $link = "";
+        // если предыдущая страница существует,
+        // построить ссылку на предыдущую страницу
+        if($this->previous_page() != false) {
+            $link = "<a href=\"{$url}?page={$this->previous_page()}\">";
+            $link.= "&laquo; Previous</a> ";
+        }
+        return $link;
+    }
 
+    public function next_link($url="") {
+        $link = "";
+        // если последняя страница существует,
+        // построить ссылку на следующую страницу
+        if($this->next_page() != false) {
+            $link = "<a href=\"{$url}?page={$this->next_page()}\">";
+            $link.= "Next &raquo;</a>";
+        }
+        return $link;
+    }
 }
-
 ?>
