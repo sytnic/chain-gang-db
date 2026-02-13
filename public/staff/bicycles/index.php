@@ -65,23 +65,8 @@ $bicycles = Bicycle::find_by_sql($sql);
   	</table>
 
 <?php
-
-// если количество страниц пагинации больше 1, 
-// то построить ссылки пагинации
-if($pagination->total_pages() > 1) {
-  echo "<div class=\"pagination\">";
-
   $url = url_for('/staff/bicycles/index.php');
-
-  echo $pagination->previous_link($url);
-
-  echo $pagination->number_links($url);
-
-  echo $pagination->next_link($url);
-
-  echo "</div>";
-}
-
+  echo $pagination->page_links($url);
 ?>    
 
   </div>

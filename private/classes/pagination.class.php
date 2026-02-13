@@ -79,5 +79,19 @@ class Pagination {
         }
         return $output;
     }
+
+    public function page_links($url) {
+        $output = "";
+        // если количество страниц пагинации больше 1, 
+        // то построить ссылки пагинации
+        if($this->total_pages() > 1) {
+            $output .= "<div class=\"pagination\">";
+            $output .= $this->previous_link($url);
+            $output .= $this->number_links($url);
+            $output .= $this->next_link($url);
+            $output .= "</div>";
+        }
+        return $output;
+    }
 }
 ?>
