@@ -74,6 +74,18 @@ if($pagination->total_pages() > 1) {
   $url = url_for('/staff/bicycles/index.php');
 
   echo $pagination->previous_link($url);
+
+  for($i=1; $i <= $pagination->total_pages(); $i++) {
+    // если счётчик совпадает с текущей страницей
+    if($i == $pagination->current_page) {
+      // вывести span обозначение страницы
+      echo " <span class=\"selected\">{$i}</span> ";
+    } else {
+      // иначе вывести ссылку на страницу
+      echo " <a href=\"{$url}?page={$i}\">{$i}</a> ";
+    }    
+  }
+
   echo $pagination->next_link($url);
 
   echo "</div>";
