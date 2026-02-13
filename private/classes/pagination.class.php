@@ -64,5 +64,20 @@ class Pagination {
         }
         return $link;
     }
+
+    public function number_links($url="") {
+        $output = "";
+        for($i=1; $i <= $this->total_pages(); $i++) {
+            // если счётчик совпадает с текущей страницей
+            if($i == $this->current_page) {
+              // вывести span обозначение страницы
+              $output .= " <span class=\"selected\">{$i}</span> ";
+            } else {
+              // иначе вывести ссылку на страницу
+              $output .= " <a href=\"{$url}?page={$i}\">{$i}</a> ";
+            }    
+        }
+        return $output;
+    }
 }
 ?>
